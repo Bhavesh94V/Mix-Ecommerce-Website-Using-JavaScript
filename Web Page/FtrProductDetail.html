@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .product-detail {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            display: flex;
+            padding: 30px;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .product-detail img {
+            max-width: 250px;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h1 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .product-info p {
+            font-size: 1.125rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .product-info label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .product-info button,
+        .product-info a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 10px;
+            margin-right: 10px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-info button:hover,
+        .product-info a:hover {
+            background-color: #0056b3;
+        }
+
+        .quantity-input {
+            width: 60px;
+            margin-top: 10px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            color: #333;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: start;
+        }
+
+        .success-message,
+        .error-message {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container product-detail">
+        <img src="" alt="Product Image">
+        <div class="product-info">
+            <h1>Product Title</h1>
+            <p>Price: $0.00</p>
+            <p>Category: Category</p>
+            <p id="stock">Available Stock : </p>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" class="quantity-input" min="1" value="1">
+            <div>
+                <button id="add-to-cart">Add to Cart</button>
+                <a href="index.html">Back to Products</a>
+            </div>
+            <div class="success-message" id="success-message">Product added to cart successfully!</div>
+            <div class="error-message" id="error-message">Product already added to cart!</div>
+            <div class="total-price" id="total-price">Total: $0.00</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const FtrProducts = [{
+                id: 'product1',
+                img: 'Imgs/filter-products/1-224x260.jpg',
+                title: "Iphone 11 Pro Max",
+                price: "$241.99",
+                stock: 6,
+                category: 'latest'
+            },
+            {
+                id: 'product2',
+                img:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKRjSiWhNhVAXyJ-vMCpY0aNDBMdnvkmFfgaZtqzFhgid1Kv6tm27VDiAz5i4PyLwba_w&usqp=CAU",
+                title: "Fastrack Analog Watch (Plus Features)",
+                price: "$122.00",
+                stock: 5,
+                category: 'best-seller'
+            },
+            {
+                id: 'product3',
+                img: 'Imgs/product-slider-img/3-224x260.jpg',
+                title: "Juniper Trail Running Bag",
+                price: "$2000.00",
+                stock: 10,
+                category: 'special'
+            },
+            {
+                id: 'product4',
+                img:
+                    'https://static.wixstatic.com/media/70841d_413571c313774478933a3262f72f835a~mv2.png/v1/fill/w_560,h_560,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/70841d_413571c313774478933a3262f72f835a~mv2.png',
+                title: "IPhone 12 Pro Max (Premium Product)",
+                price: "$602.00",
+                stock: 5,
+                category: 'latest'
+            },
+            {
+                id: 'product5',
+                img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGZjYoGAucaCujzsBeSVzFsJBg1Aon99pCA&s',
+                title: "Iphone 14 Pro Max (Plus Features)",
+                price: "$122.00",
+                stock: 7,
+                category: 'latest'
+            },
+            {
+                id: 'product6',
+                img: 'https://img0.junaroad.com/uiproducts/18689620/zoom_0-1669009918.jpg',
+                title: "V2A Chronograph Digital Watch",
+                price: "$241.99",
+                stock: 6,
+                category: 'best-seller'
+            },
+            {
+                id: 'product7',
+                img:
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5aCUmODOzFwLcarZjO8Z1P_r5sIVdTr-5gZijqlVMCtU_hmDCZZ_KPcufEsuLm2tLH3A&usqp=CAU',
+                title: "Skybags Casual Backpack ",
+                price: "$122.00",
+                stock: 9,
+                category: 'special'
+            },
+            {
+                id: 'product8',
+                img:
+                    'https://assets.ajio.com/medias/sys_master/root/20230705/I4eV/64a4e51deebac147fc4d51e4/-473Wx593H-464375705-silver-MODEL.jpg',
+                title: "Premium Mens Watch",
+                price: "$2,000.00",
+                stock: 5,
+                category: 'best-seller'
+            },
+            {
+                id: 'product9',
+                img:
+                    'https://images.hindustantimes.com/tech/htmobile4/P35953/images/Design/143993-v4-apple-iphone-14-mobile-phone-large-2.jpg',
+                title: "Iphone 15 Pro Max (Premium Product)",
+                price: "$102.00",
+                stock: 5,
+                category: 'latest'
+            },
+            {
+                id: 'product10',
+                img: 'https://images-cdn.ubuy.co.in/6539bc6ef7abb631fa5492f4-one-hand-mechanical-wrist-watch-mens.jpg',
+                title: "INVICTO T800 Ultra Watch",
+                price: "$122.00",
+                stock: 3,
+                category: 'best-seller'
+            },
+            {
+                id: 'product11',
+                img:
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZJC8kIG7GeY1Ll1hZpHIRdsSOilcbVkcI_97d4pMBvID8YqvAsiVXRr9ZbasGLjjkSvU&usqp=CAU',
+                title: "Safari Omega spacious Bag",
+                price: "$602.00",
+                stock: 5,
+                category: 'special'
+            },
+            {
+                id: 'product12',
+                img: 'https://m.media-amazon.com/images/I/61yMAsvoVSL._AC_UY1100_.jpg',
+                title: "Beoplay A1 Sand Bag",
+                price: "$122.00",
+                stock: 3,
+                category: 'special'
+            }];
+
+            function getProductIDFromURL() {
+                const params = new URLSearchParams(window.location.search);
+                return params.get('id');
+            }
+
+            function findProductByID(productId) {
+                return FtrProducts.find(product => product.id === productId) || null;
+            }
+
+            function displayProductDetails(product) {
+                const container = document.querySelector('.product-detail');
+                const image = container.querySelector('img');
+                const title = container.querySelector('h1');
+                const price = container.querySelector('p:nth-of-type(1)');
+                const category = container.querySelector('p:nth-of-type(2)');
+                const stock = document.getElementById('stock');
+                const quantityInput = document.getElementById('quantity');
+                const addToCartButton = document.getElementById('add-to-cart');
+
+                if (!product) {
+                    container.innerHTML = '<p>Product not found.</p>';
+                    return;
+                }
+
+                image.src = product.img;
+                title.textContent = product.title;
+                price.textContent = 'Price: ' + product.price;
+                category.textContent = 'Category: ' + product.category;
+                stock.textContent = 'Available Stock: ' + product.stock;
+
+                if (product.stock === 0) {
+                    addToCartButton.disabled = true;
+                    addToCartButton.textContent = 'Out of Stock';
+                }
+
+                price.setAttribute('data-price', product.price.replace('$', ''));
+
+                quantityInput.addEventListener('input', () => {
+                    checkStockAvailability(product.stock, quantityInput.value, addToCartButton);
+                });
+
+                checkStockAvailability(product.stock, quantityInput.value, addToCartButton);
+            }
+
+            function checkStockAvailability(stock, quantity, button) {
+                if (parseInt(quantity, 10) > stock) {
+                    button.disabled = true;
+                    button.textContent = 'Out of Stock';
+                } else {
+                    button.disabled = false;
+                    button.textContent = 'Add to Cart';
+                }
+            }
+
+            let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+            function addProductToCart(product, quantity) {
+                const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+                if (existingProductIndex !== -1) {
+                    cart[existingProductIndex].quantity += quantity;
+                    showErrorMessage();
+                } else {
+                    cart.push({ ...product, quantity });
+                    localStorage.setItem('cartItems', JSON.stringify(cart));
+                    showSuccessMessage();
+                }
+
+                updateTotalPrice(product.price, quantity);
+            }
+
+            function updateTotalPrice(price, quantity) {
+                const totalPriceElement = document.getElementById('total-price');
+                const priceValue = parseFloat(price.replace('$', ''));
+                const totalPrice = priceValue * quantity;
+
+                totalPriceElement.textContent = 'Total: $' + totalPrice.toFixed(2);
+            }
+
+            function showSuccessMessage() {
+                const successMessage = document.getElementById('success-message');
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+            }
+
+            function showErrorMessage() {
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+
+            document.getElementById('add-to-cart').addEventListener('click', () => {
+                const productId = getProductIDFromURL();
+                const product = findProductByID(productId);
+
+                if (!product) return;
+
+                const quantity = parseInt(document.getElementById('quantity').value, 10);
+                if (quantity > product.stock) return;
+
+                addProductToCart(product, quantity);
+            });
+
+            const productId = getProductIDFromURL();
+            const product = findProductByID(productId);
+            displayProductDetails(product);
+        });
+    </script>
+
+    <script src="/Ecommerce/Web Page/JavaScript/FtrProductDetail.js"></script>
+</body>
+
+</html>

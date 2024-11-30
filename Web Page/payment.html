@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            background-color: #f1f7ff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            padding: 20px;
+        }
+
+        .payment-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            padding: 0px 30px;
+            box-sizing: border-box;
+            height: auto;
+        }
+
+        .payment-container h2 {
+            color: rgba(0, 0, 0, 0.85);
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .google-pay-btn {
+            background-color: black;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-pay-btn i {
+            margin-left: 8px;
+        }
+
+        .google-pay-btn:hover {
+            background-color: #333;
+        }
+
+        .alternative-methods {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            height: auto;
+        }
+
+        .section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .section p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .section label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .section input {
+            width: calc(50% - 15px);
+            padding: 10px;
+            /* margin-bottom: 15px; */
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .payment-methods {
+            display: flex;
+            justify-content: space-between;
+            /* margin-top: 20px; */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .payment-methods div {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-methods div i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .payment-methods div:hover {
+            background-color: #f1f1f1;
+        }
+
+        .payment-methods .selected {
+            background-color: #e7f3ff;
+            border-left: 3px solid #007bff;
+            padding-left: 5px;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-details input {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .payment-container .payment-details button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+            /* margin-top: 20px; */
+        }
+
+        .payment-container .payment-details button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #777;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .footer-text a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .icons {
+            text-align: center;
+            /* margin: 15px 0; */
+            display: flex;
+            gap: 10px;
+        }
+
+        .icons i {
+            margin: 0 10px;
+            font-size: 24px;
+        }
+
+        .icons img {
+            max-width: 50px;
+        }
+
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            /* gap: 10px; */
+            flex-wrap: wrap;
+        }
+
+        .card-details .card-details-input {
+            width: calc(50% - 15px);
+        }
+
+        .payment-btn {
+            border: none;
+            background-color: orange;
+            width: 50%;
+            height: 40px;
+            color: white;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .payment-btn:hover {
+            background-color: darkorange;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+
+        .error.active {
+            display: block;
+        }
+
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .alert {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 15%;
+            transform: translate(-50%, 0);
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
+            z-index: 1000;
+            max-width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="payment-container">
+
+        <h2>Secure Checkout</h2>
+        <div class="google-pay-btn">
+            <!-- Google Pay Icon -->
+            Buy with <i class="fa-brands fa-google"></i> Pay
+        </div>
+
+        <div class="alternative-methods">
+            or provide your billing details
+        </div>
+
+        <form id="paymentForm">
+            <div class="section">
+                <h3>1. Contact Details</h3>
+                <p>To use saved payment methods or bonuses, please <a href="Login.html">Sign In</a></p>
+                <div class="contact-inputs" style="margin-top: 20px;">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="example@domain.com">
+                    <span id="emailError" class="error"></span>
+
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="1234567890">
+                    <span id="phoneError" class="error"></span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>2. Select your payment method</h3>
+                <div class="payment-methods">
+                    <div class="selected" id="stripe-method">
+                        <!-- Stripe Icon -->
+                        <i class="fa-brands fa-stripe-s"></i> Card
+                    </div>
+                    <div id="paypal-method">
+                        <!-- PayPal Icon -->
+                        <i class="fa-brands fa-paypal"></i> PayPal
+                    </div>
+                </div>
+
+                <div id="card-details" class="section card-details">
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456">
+                    <span id="cardNumberError" class="error"></span>
+
+                    <div class="card-details">
+                        <div class="card-details-input">
+                            <label for="exp-date">MM/YY:</label>
+                            <input type="text" id="exp-date" name="exp-date" placeholder="12/23">
+                            <span id="expDateError" class="error"></span>
+                        </div>
+                        <div class="card-details-input">
+                            <label for="cvc">CVC:</label>
+                            <input type="text" id="cvc" name="cvc" placeholder="123">
+                            <span id="cvcError" class="error"></span>
+                        </div>
+                    </div>
+                    <div class="card-details">
+                        <label for="cardholder-name">Card Holder Name:</label>
+                        <input type="text" id="cardholder-name" name="cardholder-name" placeholder="Eg :- John Doe">
+                        <span id="cardHolderNameError" class="error"></span>
+                    </div>
+
+                    <div class="icons">
+                        <p>We Accept :-</p>
+                        <img src="Imgs/payment/3.svg" alt="">
+                        <img src="Imgs/payment/4.svg" alt="">
+                        <img src="Imgs/payment/5.svg" alt="">
+                        <img src="Imgs/payment/6.svg" alt="">
+                        <img src="Imgs/payment/7.svg" alt="">
+                        <img src="Imgs/payment/8.svg" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-text">
+                <p>Stripe is a trustful and secure gateway which accepts most popular credit and debit cards. This
+                    charge
+                    will show up as "<strong>TEMPLATEMONSTER</strong>" on your bank statement.</p>
+                <label>
+                    <input type="checkbox"> I agree that my data will be stored and handled according to the <a
+                        href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>.
+                    <span id="termsError" class="error"></span>
+                </label>
+            </div>
+
+            <button type="submit" class="payment-btn" style="margin: 30px 25%;">Pay Now</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Hide all previous error messages
+            document.querySelectorAll('.error').forEach(e => e.classList.remove('active'));
+
+            let valid = true;
+
+            // Validation checks...
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailError.classList.add('active');
+                valid = false;
+            }
+
+            const phone = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            if (!phone.value || !/^\d{10}$/.test(phone.value)) {
+                phoneError.textContent = 'Please enter a valid phone number (10 digits).';
+                phoneError.classList.add('active');
+                valid = false;
+            }
+
+            const cardNumber = document.getElementById('card-number');
+            const cardNumberError = document.getElementById('cardNumberError');
+            if (!cardNumber.value || !/^\d{16}$/.test(cardNumber.value)) {
+                cardNumberError.textContent = 'Please enter a valid 16-digit card number.';
+                cardNumberError.classList.add('active');
+                valid = false;
+            }
+
+            const expDate = document.getElementById('exp-date');
+            const expDateError = document.getElementById('expDateError');
+            if (!expDate.value || !/^\d{2}\/\d{2}$/.test(expDate.value)) {
+                expDateError.textContent = 'Please enter a valid expiration date (MM/YY).';
+                expDateError.classList.add('active');
+                valid = false;
+            }
+
+            const cvc = document.getElementById('cvc');
+            const cvcError = document.getElementById('cvcError');
+            if (!cvc.value || !/^\d{3}$/.test(cvc.value)) {
+                cvcError.textContent = 'Please enter a valid 3-digit CVC.';
+                cvcError.classList.add('active');
+                valid = false;
+            }
+
+            const cardHolderName = document.getElementById('cardholder-name');
+            const cardHolderNameError = document.getElementById('cardHolderNameError');
+            if (!cardHolderName.value) {
+                cardHolderNameError.textContent = 'Please enter the cardholder name.';
+                cardHolderNameError.classList.add('active');
+                valid = false;
+            }
+
+            const termsCheckbox = document.querySelector('input[type="checkbox"]');
+            const termsError = document.getElementById('termsError');
+            if (!termsCheckbox.checked) {
+                termsError.textContent = 'You must agree to the terms.';
+                termsError.classList.add('active');
+                valid = false;
+            }
+
+            if (valid) {
+                // Show loader
+                const loader = document.createElement('div');
+                loader.classList.add('loader');
+                document.body.appendChild(loader);
+                loader.style.display = 'block';
+
+                // Show alert after 5 seconds
+                setTimeout(() => {
+                    loader.style.display = 'none';
+
+                    const alert = document.createElement('div');
+                    alert.classList.add('alert');
+                    alert.textContent = `Payment successful!
+                    Thank you for your purchase. We are honored to have customers like you. Thank you for supporting our small business.`;
+                    document.body.appendChild(alert);
+                    alert.style.display = 'block';
+
+                    setTimeout(() => {
+                        alert.style.display = 'none';
+                    }, 5000);
+                }, 3000);
+            }
+        });
+    </script>
+    <script src="/Ecommerce/Web Page/JavaScript/Payment.js"></script>
+
+</body>
+
+</html>

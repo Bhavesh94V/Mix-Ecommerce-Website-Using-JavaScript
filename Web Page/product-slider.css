@@ -1,0 +1,144 @@
+/* General Reset and Default Styling */
+* {
+    color: black;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.p-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.product-slider-heading {
+    font-size: 28px;
+    color: #313131;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Slider Container */
+.slider-container {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Product Card Styling */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    width: 235px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 0 0 auto;
+    margin: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card img {
+    border-radius: 8px;
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.card p {
+    margin: 5px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Button Styling */
+.view-details {
+    display: inline-block;
+    background-color: orange;
+    color: white;
+    padding: 7px;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: auto;
+}
+
+.view-details:hover {
+    background-color: #0056b3;
+}
+
+/* Navigation Button Styling */
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .slider-container {
+        width: 90%;
+    }
+
+    .card {
+        width: 200px;
+    }
+
+    .product-slider-heading {
+        font-size: 24px;
+    }
+
+    .nav-button {
+        font-size: 24px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .slider-container {
+        width: 100%;
+    }
+
+    .card {
+        width: 160px;
+        margin: 5px;
+    }
+
+    .product-slider-heading {
+        font-size: 20px;
+    }
+
+    .nav-button {
+        font-size: 20px;
+        padding: 6px;
+    }
+}
